@@ -5816,3 +5816,14 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+
+#alphabet ul {
+  list-style: none;
+  padding: 0;
+  margin: 0; }
+  #alphabet ul li {
+    display: inline-block;
+    margin: .5rem;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #777777; }

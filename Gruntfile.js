@@ -13,8 +13,8 @@ module.exports = function (grunt) {
           files: ['js/main.js']
         },
         css: {
-          files: ['sass/style.scss'],
-          tasks: ['sass', 'jshint']
+          files: ['**/*.scss'],
+          tasks: ['sass']
         }
       },
 
@@ -28,9 +28,10 @@ module.exports = function (grunt) {
             'css/style.css' : 'sass/style.scss'
           }
         }
-      }
+      },
+
     });
 
-     grunt.registerTask('default', ['watch', 'jshint']);
+     grunt.registerTask('default', ['watch', 'sass']);
 };
 

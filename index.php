@@ -25,13 +25,15 @@
       </div>
     </div>
 
+<footer>
     <div class="container">
       <div class="row">
-        <div class="well">
-          <h2>Bokstäver</h2>
+        <div id="alphabet" class="well">
+
         </div>
       </div>
     </div>
+</footer>
 
   <script src="js/jquery.min.js"></script>
   <script src="js/main.js"> </script>
