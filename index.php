@@ -19,7 +19,7 @@
 
     <div class="container">
       <div class="row">
-        <div class="well">
+        <div class="well the-secret">
           <h2>Gissa</h2>
         </div>
       </div>
