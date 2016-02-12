@@ -25,6 +25,53 @@ jQuery(document).ready(function($) {
   };
 
 
+
+
+   // choose a random word from word_list
+  function the_random_word (the_word) {
+     var i = Math.floor(Math.random() * the_word.length);
+     return the_word[i];
+  }
+
+  // wrap secret letter in unordered list
+  $('.the-secret').append('<ul class="secret_wrapper"></ul>');
+
+  // assign the secret word to a variable
+  var secret_word = the_random_word(word_list).toUpperCase();
+
+  // loop through secret word and display every letter by itself
+  for (var i = 0; i < secret_word.length; i++) {
+    $('.secret_wrapper').append('<li class="well secret_letters the-letters">' + secret_word[i] + '</li>');
+  };
+
+  // display question marks instead of secret letters
+  var secret_letters = $('.secret_letters');
+  secret_letters.html('?')
+
+
+$('#alphabet .the-letters').on('click', function(event) {
+  event.preventDefault();
+
+    // get the guessed letter
+    var guessed_letter = $(this).html();
+    console.log(secret_word);
+      if (secret_word.indexOf(guessed_letter) !== -1) {
+        var i = secret_word.indexOf(guessed_letter);
+        var arr = $.makeArray(secret_word);
+        if($.inArray(secret_letters[i], arr)) {
+
+            secret_letters[i] = $(secret_letters[i]).html(guessed_letter);
+        }
+
+
+        console.log(secret_letters[i]);
+        console.log(guessed_letter);
+      }else {
+        console.log('NOT FOUND');
+      }
+
+});
+
   // set <li> tag width to the widest one
   var widest = 0;
   $('.the-letters').each(function() {
@@ -36,36 +83,15 @@ jQuery(document).ready(function($) {
   });
 
 
-   // choose a random word from word_list
-  function the_random_word (the_word) {
-     var i = Math.floor(Math.random() * the_word.length);
-     return the_word[i];
-  }
-
-  // append secret letter's wrapper
-  $('.the-secret').append('<ul class="secret_wrapper"></ul>');
-
-  // assign the secret word to a variable
-  var secret_word = the_random_word(word_list);
-
-  // loop through secret word and display every letter by itself
-  for (var i = 0; i < secret_word.length; i++) {
-    $('.secret_wrapper').append('<li class="well secret_letters the-letters">' + secret_word[i] + '</li>');
-  };
-
-  $('.secret_letters').html('?');
-
-
-
-
-    // set width to <li> elements
+    // set width to the widest <li> elements
    $('.the-letters').css({
       width: widest + 'px',
       textAlign: 'center',
    });
 
 
-//the_random_word(word_list)
+
+console.log(the_random_word(word_list));
 
 
 
