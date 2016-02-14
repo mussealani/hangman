@@ -117,14 +117,19 @@ console.log(arr);
     // remove the class "0" to hold the right answer in right place
     $(secret_letters).removeClass('0');
 
+    // check if user has guessed incorrect letter
     if ($.inArray(guessed_letter, arr) == -1) {
+      // decrement chances counter
       wrong_answer--;
+      // disable incorrect letter
       $(this).off().css({
         backgroundColor: '#f00',
         color: '#fff',
       });
 
+      // else if user has guessed the right letter
     }else{
+      // disable the chosen letter
       $(this).off().css({
         backgroundColor: '#47B40F',
         color: '#eee',
@@ -144,7 +149,7 @@ console.log(arr);
         // hide secret word holders
         $('.secret_wrapper').hide(300);
         // display message to inform the user that he/she couldn't win the game
-        $('.the-secret').append('<h3>Unfortunately you could not win the game!</h3>');
+        $('.the-secret').append('<h3>Unfortunately you couldn\'t win the game!</h3>');
         // append reset button
         $('.the-secret').append('<button id="reload" class="btn btn-danger" type="button">Try Again!</button>');
         // reload browser to reset the game
@@ -164,7 +169,7 @@ console.log(arr);
         // hide secret word holders
         $('.secret_wrapper').hide(300);
         // display message to inform the user that he/she won the game
-        $('.the-secret').append('<h3>Congratulation you won!<br>The right word was <span class="the_secret">' + secret_word + '</span></h3>');
+        $('.the-secret').append('<h3>Congratulations you\'ve won!<br>The right word was <span class="the_secret">' + secret_word + '</span></h3>');
         // append reset button
         $('.the-secret').append('<button id="success" class="btn btn-success" type="button">Click here to start again!</button>');
         // reload browser to reset the game
@@ -220,7 +225,12 @@ console.log(arr);
   });
 
 
-
+  /**
+   * this function will count the question mark
+   * that reprecents corrent letters,
+   * the function return 1 if there is letter or letters need to be guessed,
+   * and return "undefined" if the user has guessed the right word.
+   */
   function count_question_mark(val) {
   var q_holder = [];
   for (var i = 0; i < val.length; i++) {
