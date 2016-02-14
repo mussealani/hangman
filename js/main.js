@@ -8,10 +8,10 @@ jQuery(document).ready(function($) {
 
   // game's words list
   var word_list = [
-    'Impertinent', 'Hegemoni', 'Verserad', 'Kompilera', 'Perfid', 'Renegat', 'Karessera',
-    'Extemporera', 'Transversal', 'Epistomologi', 'Apologi', 'Juvenil', 'Flegmatisk', 'Preciös',
-    'Elyseisk', 'Perplex', 'Truism', 'Panegyrik', 'Fatigera', 'Amsaga', 'Kapriciös', 'Paternalism',
-    'Notabilitet', 'Afasi', 'Marodera', 'Kommuniké', 'Arrivist'
+    'wordpress', 'drupal', 'javascript', 'sverige', 'malmö', 'medieinstitutet', 'pågatåg',
+    'Helsingborg', 'Danmark', 'Köpenhamn', 'Apolo', 'Öresundsbron', 'Maja', 'Volvo',
+    'Absolut', 'Damsugare', 'Körkort', 'Öland', 'Torso', 'Peberholm', 'Stockholm', 'Wikipedia',
+    'Amsterdam', 'Bordeaux', 'Musée'
   ];
 
   // append unordered list in #alphabet div
@@ -71,7 +71,11 @@ jQuery(document).ready(function($) {
   var wrong_answer = 6;
 
   // display how many chances remain
-  $('.wrong_answer').append('<div class="counter">' + wrong_answer + '</dev>');
+  $('.wrong_answer').append('<div class="counter">' +
+                          '<span>You have: </span>' +
+                    '<h1>' + wrong_answer + '</h1>' +
+                        '<span>chances left!</span>' +
+                    '</dev>');
 
 console.log(arr);
 
@@ -142,7 +146,12 @@ console.log(arr);
         // display message to inform the user that he/she couldn't win the game
         $('.the-secret').append('<h3>Unfortunately you could not win the game!</h3>');
         // append reset button
-        $('.the-secret').append('<button class="btn btn-danger" type="button">Try Again!</button>');
+        $('.the-secret').append('<button id="reload" class="btn btn-danger" type="button">Try Again!</button>');
+        // reload browser to reset the game
+        $('#reload').on('click', function(event) {
+          event.preventDefault();
+          location.reload(true);
+        });
         // disable alphabet click
         $('#alphabet .the-letters').off();
 
@@ -158,12 +167,20 @@ console.log(arr);
         $('.the-secret').append('<h3>Congratulation you won!<br>The right word was <span class="the_secret">' + secret_word + '</span></h3>');
         // append reset button
         $('.the-secret').append('<button id="success" class="btn btn-success" type="button">Click here to start again!</button>');
+        // reload browser to reset the game
+        $('#success').on('click', function(event) {
+          event.preventDefault();
+          location.reload(true);
+        });
         // disable alphabet click
         $('#alphabet .the-letters').off();
       }
     // reappend counter div to update incorrect counter
-    $('.wrong_answer').append('<div class="counter">' + wrong_answer + '</dev>');
-
+      $('.wrong_answer').append('<div class="counter">' +
+                          '<span>You have: </span>' +
+                    '<h1>' + wrong_answer + '</h1>' +
+                        '<span>chances left!</span>' +
+                    '</dev>');
 
 
 
@@ -171,31 +188,31 @@ console.log(arr);
     switch (wrong_answer) {
 
       case 5:
-        $('.counter').css({ color: '#4C1EAB' });
+        $('.counter h1').css({ color: '#4C1EAB' });
         break;
 
       case 4:
-        $('.counter').css({ color: '#863892' });
+        $('.counter h1').css({ color: '#863892' });
         break;
 
       case 3:
-        $('.counter').css({ color: '#cADC15' });
+        $('.counter h1').css({ color: '#cADC15' });
         break;
 
       case 2:
-        $('.counter').css({ color: '#FA6A15' });
+        $('.counter h1').css({ color: '#FA6A15' });
         break;
 
       case 1:
-        $('.counter').css({ color: '#FF4000' });
+        $('.counter h1').css({ color: '#FF4000' });
         break;
 
       case 0:
-        $('.counter').css({ color: '#FF0000' });
+        $('.counter h1').css({ color: '#FF0000' });
         break;
 
       default:
-      $('.counter').css({
+      $('.counter h1').css({
         color: 'rgb(71, 180, 15)',
       });
       break;
@@ -246,12 +263,6 @@ console.log(arr);
     height: highest + 'px',
     textAlign: 'center',
    });
-
-
-
-//console.log(the_random_word(word_list));
-
-
 
 });// end jQuery
 

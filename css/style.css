@@ -5838,8 +5838,7 @@ header {
     letter-spacing: .8rem; }
 
 #the-secret {
-  padding-bottom: 3rem;
-  overflow: auto; }
+  padding-bottom: 3rem; }
   #the-secret .secret_wrapper {
     list-style: none;
     margin: 0;
@@ -5870,6 +5869,11 @@ header {
       font-weight: 900;
       letter-spacing: .4rem; }
 
-.counter {
+.counter h1 {
   font-size: 10rem;
+  font-weight: 900; }
+
+.counter span {
+  font-size: 2rem;
+  color: #f00;
   font-weight: 900; }

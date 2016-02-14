@@ -20,7 +20,7 @@
     <div class="container">
       <div class="row">
         <div id="the-secret" class="equal-height well the-secret col-md-9">
-          <h2>Gissa</h2>
+          <h2>GUESS A LETTER</h2>
         </div>
         <div class="equal-height wrong_answer well col-md-3"></div>
       </div>
@@ -37,6 +37,7 @@
 </footer>
 
   <script src="js/jquery.min.js"></script>
+  <script src="js/jquery.matchHeight-min.js"></script>
   <script src="js/main.js"> </script>
   </body>
 </html>
