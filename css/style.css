@@ -5829,11 +5829,47 @@ button.close {
     color: #777777;
     cursor: pointer; }
 
-.secret_wrapper {
-  list-style: none;
-  margin: 0;
-  padding: 0; }
-  .secret_wrapper li {
-    display: inline-block;
-    text-align: center;
-    margin: .5rem; }
+header {
+  margin-top: 5rem;
+  text-align: center; }
+  header h1 {
+    font-weight: 900;
+    color: #555555;
+    letter-spacing: .8rem; }
+
+#the-secret {
+  padding-bottom: 3rem;
+  overflow: auto; }
+  #the-secret .secret_wrapper {
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+    #the-secret .secret_wrapper li {
+      display: inline-block;
+      text-align: center;
+      margin: .5rem;
+      font-weight: 900;
+      font-size: 2rem;
+      -webkit-transition: all  .3s;
+      -moz-transition: all  .3s;
+      -o-transition: all  .3s;
+      transition: all  .3s; }
+  #the-secret #success {
+    margin-bottom: 3rem;
+    clear: both; }
+  #the-secret h2 {
+    text-transform: uppercase;
+    color: #777777;
+    font-weight: 900;
+    letter-spacing: .4rem;
+    margin-top: 0; }
+  #the-secret h3 {
+    color: #555555; }
+    #the-secret h3 span {
+      color: #f00;
+      font-weight: 900;
+      letter-spacing: .4rem; }
+
+.counter {
+  font-size: 10rem;
+  font-weight: 900; }

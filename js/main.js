@@ -6,7 +6,7 @@ jQuery(document).ready(function($) {
       'U', 'V', 'W', 'X', 'Y', 'Z', 'Ä', 'Ö', 'Å'
   ];
 
-  // game's word list
+  // game's words list
   var word_list = [
     'Impertinent', 'Hegemoni', 'Verserad', 'Kompilera', 'Perfid', 'Renegat', 'Karessera',
     'Extemporera', 'Transversal', 'Epistomologi', 'Apologi', 'Juvenil', 'Flegmatisk', 'Preciös',
@@ -18,13 +18,11 @@ jQuery(document).ready(function($) {
   $('#alphabet').append('<ul class="alpha-holder"></ul>');
 
 
-  // loop through the alphabet
+  // loop through the alphabet and display it as unordered list
   for (var i = 0; i < alphabet.length; i++) {
     // wrap every letter in <li> tag
     $('.alpha-holder').append('<li class="well the-letters">' + alphabet[i] + '</li>');
   };
-
-
 
 
    // choose a random word from word_list
@@ -36,7 +34,7 @@ jQuery(document).ready(function($) {
   // wrap secret letter in unordered list
   $('.the-secret').append('<ul class="secret_wrapper"></ul>');
 
-  // assign the secret word to a variable
+  // assign the secret word to a variable and convert the word to upper case
   var secret_word = the_random_word(word_list).toUpperCase();
 
   // loop through secret word and display every letter by itself
@@ -46,31 +44,177 @@ jQuery(document).ready(function($) {
 
   // display question marks instead of secret letters
   var secret_letters = $('.secret_letters');
-  secret_letters.html('?')
+  var question_mark = secret_letters.html('?');
 
 
-$('#alphabet .the-letters').on('click', function(event) {
-  event.preventDefault();
 
-    // get the guessed letter
+
+
+  // create empty array to hold secret word as an array
+  var arr = [];
+
+    for (var i = 0; i < secret_word.length; i++) {
+       arr.push(secret_word[i]);
+  }
+
+/**
+  * defince indx array to check if user has gussed right letter
+  * this array will contain either 0 or -1. The 0 reprecent the
+  * position of the right letter and -1 means there is no letter matches.
+ */
+  var indx = [];
+
+  /**
+   * defince incorrect guesses variable, this variable will hold
+   * the number that reprecet how many incorrect guesses allowed.
+   */
+  var wrong_answer = 6;
+
+  // display how many chances remain
+  $('.wrong_answer').append('<div class="counter">' + wrong_answer + '</dev>');
+
+console.log(arr);
+
+
+  /**
+   * get the alphabet and assign on click event handler to it
+   */
+  $('#alphabet .the-letters').on('click', function(event) {
+    event.preventDefault();
+
+    // get the guessed letter that a user clicked on
     var guessed_letter = $(this).html();
-    console.log(secret_word);
-      if (secret_word.indexOf(guessed_letter) !== -1) {
-        var i = secret_word.indexOf(guessed_letter);
-        var arr = $.makeArray(secret_word);
-        if($.inArray(secret_letters[i], arr)) {
 
-            secret_letters[i] = $(secret_letters[i]).html(guessed_letter);
-        }
+    // get guessed letter position in the secret word (-1 or 0)
+    for (var i = 0; i < arr.length; i++) {
+     // assign the results of the guessed letter to pos variable
+     // this variable will hold 0 if the user guessed right letter
+     // and will hold -1 if the user guessed wrong letter
+     var pos = arr[i].indexOf(guessed_letter);
+     // push the answer to indx array
+     indx.push(pos);
+    };
 
 
-        console.log(secret_letters[i]);
-        console.log(guessed_letter);
-      }else {
-        console.log('NOT FOUND');
+    for (var i = 0; i < secret_letters.length; i++) {
+      //$(secret_letters[i]).toggleClass(indx[i]);
+      $(secret_letters[i]).addClass(' ' + indx[i]);
+    };
+
+    // display the right answer and style the answer container
+    $('.0').html(guessed_letter).css({
+      backgroundColor: '#e3e3e3',
+      color: '#888',
+      borderColor: '#bbb',
+      fontWeight: '900',
+      fontSize: '2rem',
+    });
+
+    // remove the class "0" to hold the right answer in right place
+    $(secret_letters).removeClass('0');
+
+    if ($.inArray(guessed_letter, arr) == -1) {
+      wrong_answer--;
+      $(this).off().css({
+        backgroundColor: '#f00',
+        color: '#fff',
+      });
+
+    }else{
+      $(this).off().css({
+        backgroundColor: '#47B40F',
+        color: '#eee',
+      });
+    }
+
+
+    console.log(indx);
+    // clear indx array
+     indx = [];
+
+    // remove incorrect answer counter div to update it at every click
+    $('.wrong_answer .counter').remove();
+
+      // check if user hasn't any chance left
+      if (wrong_answer == 0) {
+        // hide secret word holders
+        $('.secret_wrapper').hide(300);
+        // display message to inform the user that he/she couldn't win the game
+        $('.the-secret').append('<h3>Unfortunately you could not win the game!</h3>');
+        // append reset button
+        $('.the-secret').append('<button class="btn btn-danger" type="button">Try Again!</button>');
+        // disable alphabet click
+        $('#alphabet .the-letters').off();
+
+        /**
+         * check if the user won the game, this function count
+         * question marks that appear instead of the right letter,
+         * it return undefined if the user has guessed the right word
+         */
+      }else if (count_question_mark(secret_letters) == undefined) {
+        // hide secret word holders
+        $('.secret_wrapper').hide(300);
+        // display message to inform the user that he/she won the game
+        $('.the-secret').append('<h3>Congratulation you won!<br>The right word was <span class="the_secret">' + secret_word + '</span></h3>');
+        // append reset button
+        $('.the-secret').append('<button id="success" class="btn btn-success" type="button">Click here to start again!</button>');
+        // disable alphabet click
+        $('#alphabet .the-letters').off();
       }
+    // reappend counter div to update incorrect counter
+    $('.wrong_answer').append('<div class="counter">' + wrong_answer + '</dev>');
 
-});
+
+
+
+    // style counter No.
+    switch (wrong_answer) {
+
+      case 5:
+        $('.counter').css({ color: '#4C1EAB' });
+        break;
+
+      case 4:
+        $('.counter').css({ color: '#863892' });
+        break;
+
+      case 3:
+        $('.counter').css({ color: '#cADC15' });
+        break;
+
+      case 2:
+        $('.counter').css({ color: '#FA6A15' });
+        break;
+
+      case 1:
+        $('.counter').css({ color: '#FF4000' });
+        break;
+
+      case 0:
+        $('.counter').css({ color: '#FF0000' });
+        break;
+
+      default:
+      $('.counter').css({
+        color: 'rgb(71, 180, 15)',
+      });
+      break;
+    }
+  });
+
+
+
+  function count_question_mark(val) {
+  var q_holder = [];
+  for (var i = 0; i < val.length; i++) {
+    if (val[i].innerHTML == '?') {
+      q_holder.push(val[i]);
+      return q_holder.length;
+    }
+  };
+}
+
+
 
   // set <li> tag width to the widest one
   var widest = 0;
@@ -90,8 +234,22 @@ $('#alphabet .the-letters').on('click', function(event) {
    });
 
 
+   var highest = 0;
+   $('.equal-height').each(function() {
+     var height = $(this).outerHeight();
+     if (highest < height) {
+      highest = height;
+     }
+   });
 
-console.log(the_random_word(word_list));
+   $('.equal-height').css({
+    height: highest + 'px',
+    textAlign: 'center',
+   });
+
+
+
+//console.log(the_random_word(word_list));
 
 
 

@@ -19,9 +19,10 @@
 
     <div class="container">
       <div class="row">
-        <div class="well the-secret">
+        <div id="the-secret" class="equal-height well the-secret col-md-9">
           <h2>Gissa</h2>
         </div>
+        <div class="equal-height wrong_answer well col-md-3"></div>
       </div>
     </div>
 
